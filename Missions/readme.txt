@@ -1,0 +1,1 @@
+Singleplayer scenarios exported from the in-game editor are stored here. You can also place downloaded custom scenarios in this folder and play them from the Scenarios list.

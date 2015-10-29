@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<log4net>
+  <appender name="Console" type="log4net.Appender.TraceAppender">
+    <layout type="log4net.Layout.PatternLayout">
+      <!-- Pattern to output the caller's file name and line number -->
+      <conversionPattern value="%5level [%thread] (%file:%line): %message%newline" />
+    </layout>
+  </appender>
+
+  <appender name="RollingFile" type="log4net.Appender.RollingFileAppender">
+    <file type="log4net.Util.PatternString" value="%envFolderPath{LocalApplicationData}\\Arma 3 Launcher\\Logs\\arma3launcher.rpt" />
+    <appendToFile value="true" />
+    <maxSizeRollBackups value="10" />
+    <lockingModel type="log4net.Appender.FileAppender+MinimalLock" />
+    <layout type="log4net.Layout.PatternLayout">
+      <!--<conversionPattern value="%date [%level] %thread (%file:%line): %type:%method - %message%newline" />-->
+      <!--<conversionPattern value="%date [%5.5level] %3.3thread (%3.3line): %type:%method - %message%newline    >>  %stacktrace{2}%newline" />-->
+      <conversionPattern value="%date [%5.5level] %3.3thread: %logger [%type.%method:%line] %message%newline" />
+      <!--<conversionPattern value="%date{dd.MM.yyyy HH:mm:ss}   [%5.5level]   %3.3thread   %logger: %message%newline" />-->
+    </layout>
+    <filter type="log4net.Filter.LoggerMatchFilter">
+      <loggerToMatch value="FileSynchronization" />
+      <acceptOnMatch value="false" />
+    </filter>
+    <filter type="log4net.Filter.LoggerMatchFilter">
+      <loggerToMatch value="SteamLayer" />
+      <acceptOnMatch value="false" />
+    </filter>
+    <filter type="log4net.Filter.LoggerMatchFilter">
+      <loggerToMatch value="SteamApi" />
+      <acceptOnMatch value="false" />
+    </filter>
+  </appender>
+ 
+  <appender name="ModsFile" type="log4net.Appender.RollingFileAppender">
+    <file type="log4net.Util.PatternString" value="%envFolderPath{LocalApplicationData}\\Arma 3 Launcher\\Logs\\mods.rpt" />
+    <appendToFile value="true" />
+    <maxSizeRollBackups value="10" />
+    <layout type="log4net.Layout.PatternLayout">
+      <conversionPattern value="%date [%5.5level]   %3.3thread   %logger: %message%newline" />
+    </layout>
+  </appender>
+
+  <appender name="FileSyncFile" type="log4net.Appender.RollingFileAppender">
+    <file type="log4net.Util.PatternString" value="%envFolderPath{LocalApplicationData}\\Arma 3 Launcher\\Logs\\filesync.rpt" />
+    <appendToFile value="true" />
+    <maxSizeRollBackups value="10" />
+    <layout type="log4net.Layout.PatternLayout">
+      <conversionPattern value="%date [%5.5level]   %3.3thread   %logger: %message%newline" />
+    </layout>
+  </appender>
+
+  <appender name="SteamFile" type="log4net.Appender.RollingFileAppender">
+    <file type="log4net.Util.PatternString" value="%envFolderPath{LocalApplicationData}\\Arma 3 Launcher\\Logs\\Steam.rpt" />
+    <appendToFile value="true" />
+    <maxSizeRollBackups value="10" />
+    <layout type="log4net.Layout.PatternLayout">
+      <conversionPattern value="%date [%5.5level]   %3.3thread   %logger: %message%newline" />
+    </layout>
+  </appender>
+
+  <root>
+    <level value="DEBUG" />
+    <appender-ref ref="Console" />
+    <appender-ref ref="RollingFile" />
+  </root>
+  <logger name="Launcher">
+    <level value="DEBUG" />
+  </logger>
+  <logger name="SharedResources">
+    <level value="DEBUG" />
+  </logger>
+  <logger name="Utils">
+    <level value="DEBUG" />
+  </logger>
+  <logger name="SteamApi">
+    <level value="ERROR" />
+    <appender-ref ref="SteamFile" />
+  </logger>
+  <logger name="SteamLayer" additive="False">
+    <level value="ERROR" />
+    <appender-ref ref="SteamFile" />
+  </logger>
+  <logger name="SteamAPIWrap">
+    <level value="ALL" />
+  </logger>
+  <logger name="SteamManager.Publisher">
+    <level value="OFF" />
+  </logger>
+  <logger name="LockLogger">
+    <level value="OFF" />
+  </logger>
+  <logger name="Stopwatch">
+    <level value="OFF" />
+  </logger>
+  <logger name="FileSynchronization">
+    <level value="ALL" />
+    <appender-ref ref="FileSyncFile" />
+  </logger>
+</log4net>
